@@ -25,6 +25,7 @@ public:
     bool moveRight();
     bool moveUp();
     bool moveDown();
+    int getScore();
     
 private:
     bool _CheckCanMoveLeft();
@@ -47,6 +48,7 @@ private:
     std::vector<int> m_DrawPosition;
     std::vector<int> m_EmptyPosition;
     T9DigitalItem *m_container[16];
+    int m_score;
 };
 
 #endif

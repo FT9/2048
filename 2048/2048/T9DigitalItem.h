@@ -20,8 +20,10 @@ public:
     
     int getNum();
     void setNum(int num);
-    void doubleNum();
+    int doubleNum();
     void drawItem(int xUnit, int yUnit, float unitSize);
+    
+    CGColorRef _DrawColor();
     
 private:
     bool m_bIsExist;

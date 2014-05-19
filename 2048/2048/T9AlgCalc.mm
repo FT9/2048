@@ -11,6 +11,7 @@
 
 T9AlgCalc::T9AlgCalc(float unit)
     : m_unit(unit)
+    , m_score(0)
 {
     ;
 }
@@ -44,6 +45,11 @@ void T9AlgCalc::init()
     
     m_container[item1Idx]->setExist(true);
     m_container[item2Idx]->setExist(true);
+}
+
+int T9AlgCalc::getScore()
+{
+    return m_score;
 }
 
 void T9AlgCalc::drawItems()
@@ -133,7 +139,7 @@ void T9AlgCalc::_ProcessRow(std::vector<int> &vecIdx, std::vector<T9DigitalItem 
             if (vec[i]->getNum() != vec[k]->getNum())
                 break;
             
-            vec[i]->doubleNum();
+            m_score = vec[i]->doubleNum();
             vec[k]->setExist(false);
             _RemoveItem(vecIdx[k]);
             

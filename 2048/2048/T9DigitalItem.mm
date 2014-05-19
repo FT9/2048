@@ -34,23 +34,52 @@ void T9DigitalItem::setNum(int num)
     m_iNum = num;
 }
 
-void T9DigitalItem::doubleNum()
+int T9DigitalItem::doubleNum()
 {
     m_iNum *= 2;
+    return  m_iNum;
 }
 
 void T9DigitalItem::drawItem(int xUnit, int yUnit, float unitSize)
 {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(context, 1);
+    CGContextSetFillColorWithColor(context, _DrawColor());
+    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextAddRect(context, CGRectMake(xUnit * unitSize, yUnit * unitSize, unitSize, unitSize));
+    CGContextDrawPath(context, kCGPathFillStroke);
+    
     NSString *drawContent = [NSString stringWithFormat:@"%d", m_iNum];
     
     NSDictionary *attrs = @{NSForegroundColorAttributeName:[UIColor blueColor],
-                           NSBackgroundColorAttributeName:[UIColor brownColor],
-                           NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+                           NSFontAttributeName:[UIFont boldSystemFontOfSize:30]};
     
+    CGSize size = [drawContent sizeWithAttributes:attrs];
+    
+    assert(size.width < unitSize && size.height < unitSize);
     [drawContent drawInRect:CGRectMake(
-                                       xUnit * unitSize,
-                                       yUnit * unitSize,
+                                       xUnit * unitSize + (unitSize - size.width) / 2,
+                                       yUnit * unitSize + (unitSize - size.height) / 2,
                                        unitSize,
                                        unitSize)
              withAttributes:attrs];
+}
+
+CGColorRef T9DigitalItem::_DrawColor()
+{
+    double seed = 0.0;
+    double exp = (int)log2(m_iNum);
+    if (exp < 10)
+    {
+        seed = exp / 10;
+    }
+    else
+    {
+        int tmp = exp;
+        while (tmp > 10) {
+            tmp = tmp / 10;
+        }
+        seed = exp / 10 + 0.2 * tmp;
+    }
+    return [UIColor colorWithRed:seed green:1 - seed blue:fabs(1 - 2*seed) alpha:1].CGColor;
 }
