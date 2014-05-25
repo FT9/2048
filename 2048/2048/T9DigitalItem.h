@@ -23,6 +23,10 @@ public:
     int doubleNum();
     void drawItem(int xUnit, int yUnit, float unitSize);
     
+private:
+    void _DrawEmptyItem(int xUnit, int yUnit, float unitSize);
+    void _DrawExistItem(int xUnit, int yUnit, float unitSize);
+    
     CGColorRef _DrawColor();
     
 private:

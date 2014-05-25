@@ -20,58 +20,51 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    //  UIColor *backgrounColor = [[UIColor alloc] initWithRed:0.258 green:0.248 blue:0.241 alpha:1];
     
-    const CGFloat bottomMarginFactor = 0.04, topMarginFactor = 0.04, horizontalMarginFactor = 0.03;
-    CGFloat fMDViewWidthAndHeight = self.view.frame.size.width * (1 - horizontalMarginFactor * 2);
-    CGFloat fLeftMargin = self.view.frame.size.width * horizontalMarginFactor;
-    CGFloat fTopMargin = self.view.frame.size.height * topMarginFactor;
-    //CGFloat fRightMargin = self.view.frame.size.width * horizontalMarginFactor;
-    CGFloat fBottomMargin = self.view.frame.size.height * bottomMarginFactor;
+    [self.view setBackgroundColor:[UIColor lightGrayColor]];
+   
+    for (UIView *view in self.view.subviews)
+    {
+        if (view.tag != 1)
+            [view setBackgroundColor:[UIColor lightGrayColor]];
+    }
+    [self.MainView setBackgroundColor:[UIColor darkGrayColor]];
     
-    CGFloat fInfoViewWidth = fMDViewWidthAndHeight;
-    CGFloat fInfoViewHeight = self.view.frame.size.height - fTopMargin - fBottomMargin - fMDViewWidthAndHeight;
-    CGPoint pointInfoViewStartPoint = CGPointMake(fLeftMargin, fTopMargin);
-    T9InfoView *infoView = [[T9InfoView alloc]
-                            initWithFrame:CGRectMake(pointInfoViewStartPoint.x,
-                                                     pointInfoViewStartPoint.y,
-                                                     fInfoViewWidth,
-                                                     fInfoViewHeight)];
-    
-    CGPoint pointMDViewStartPoint = CGPointMake(fLeftMargin,self.view.frame.size.height - fMDViewWidthAndHeight - fBottomMargin);
-    T9MainDrawView *mainDrawView = [[T9MainDrawView alloc]
-                                    initWithFrame:CGRectMake(
-                                                             pointMDViewStartPoint.x,
-                                                             pointMDViewStartPoint.y,
-                                                             fMDViewWidthAndHeight,
-                                                             fMDViewWidthAndHeight)];
-    
-    
-    UISwipeGestureRecognizer *swipeGestureright = [[UISwipeGestureRecognizer alloc] initWithTarget:mainDrawView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureright = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
     [swipeGestureright setDirection:UISwipeGestureRecognizerDirectionRight];
     
-    UISwipeGestureRecognizer *swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:mainDrawView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
     [swipeGestureLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
     
-    UISwipeGestureRecognizer *swipeGestureUp = [[UISwipeGestureRecognizer alloc] initWithTarget:mainDrawView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
     [swipeGestureUp setDirection:UISwipeGestureRecognizerDirectionUp];
     
-    UISwipeGestureRecognizer *swipeGestureDown = [[UISwipeGestureRecognizer alloc] initWithTarget:mainDrawView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
     [swipeGestureDown setDirection:UISwipeGestureRecognizerDirectionDown];
     
-    [mainDrawView addGestureRecognizer:swipeGestureright];
-    [mainDrawView addGestureRecognizer:swipeGestureLeft];
-    [mainDrawView addGestureRecognizer:swipeGestureUp];
-    [mainDrawView addGestureRecognizer:swipeGestureDown];
-    [mainDrawView setUserInteractionEnabled:YES];
+    [self.MainView addGestureRecognizer:swipeGestureright];
+    [self.MainView addGestureRecognizer:swipeGestureLeft];
+    [self.MainView addGestureRecognizer:swipeGestureUp];
+    [self.MainView addGestureRecognizer:swipeGestureDown];
+    [self.MainView setUserInteractionEnabled:YES];
     
-    [self.view addSubview:infoView];
-    [self.view addSubview: mainDrawView];
+    self.MainView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.InfoView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.MainView.delegate = self;
+    
+    [self.Score setText:@"0"];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)changeTheScore:(int)score
+{
+    [self.Score setText:[NSString stringWithFormat:@"%d", score]];
 }
 
 @end

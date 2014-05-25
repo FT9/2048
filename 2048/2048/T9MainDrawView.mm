@@ -7,16 +7,16 @@
 //
 
 #import "T9MainDrawView.h"
+#import "T9ViewController.h"
 
 @implementation T9MainDrawView
 
-- (id)initWithFrame:(CGRect)frame
+
+- (id) initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        [self setBackgroundColor:[UIColor grayColor]];
-        
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
         m_pAlgCalc = new T9AlgCalc((float)self.frame.size.width / 4);
         m_pAlgCalc->init();
     }
@@ -43,12 +43,19 @@
         default:
             break;
     }
+    [self.delegate changeTheScore:m_pAlgCalc->getScore()];
     [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect
 {
     m_pAlgCalc->drawItems();
+}
+
+- (void)dealloc
+{
+    if (m_pAlgCalc)
+        delete m_pAlgCalc;
 }
 
 @end

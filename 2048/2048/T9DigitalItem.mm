@@ -42,26 +42,55 @@ int T9DigitalItem::doubleNum()
 
 void T9DigitalItem::drawItem(int xUnit, int yUnit, float unitSize)
 {
+    if (isExist())
+        _DrawExistItem(xUnit, yUnit, unitSize);
+    else
+        _DrawEmptyItem(xUnit, yUnit, unitSize);
+}
+
+void T9DigitalItem::_DrawEmptyItem(int xUnit, int yUnit, float unitSize)
+{
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 1);
+    CGContextSetFillColorWithColor(context, [UIColor grayColor].CGColor);
+    CGContextAddRect(context, CGRectMake(xUnit * unitSize + 2, yUnit * unitSize + 2, unitSize - 4, unitSize - 4));
+    CGContextDrawPath(context, kCGPathFill);
+}
+
+
+void T9DigitalItem::_DrawExistItem(int xUnit, int yUnit, float unitSize)
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, _DrawColor());
-    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-    CGContextAddRect(context, CGRectMake(xUnit * unitSize, yUnit * unitSize, unitSize, unitSize));
-    CGContextDrawPath(context, kCGPathFillStroke);
+    CGContextAddRect(context, CGRectMake(xUnit * unitSize + 2, yUnit * unitSize + 2, unitSize - 4, unitSize - 4));
+    CGContextDrawPath(context, kCGPathFill);
     
     NSString *drawContent = [NSString stringWithFormat:@"%d", m_iNum];
+    CGFloat fontSize = 30;
+    CGRect ContentRect;
+    NSMutableDictionary *attrs = [[NSMutableDictionary alloc] init];
+    do
+    {
+        [attrs removeObjectForKey:NSFontAttributeName];
+        
+        [attrs setValue:[UIColor blueColor] forKey:NSForegroundColorAttributeName];
+        [attrs setValue:[UIFont boldSystemFontOfSize:fontSize] forKey:NSFontAttributeName];
+        
+        NSStringDrawingContext *DrawContext = [[NSStringDrawingContext alloc] init];
+        ContentRect = [drawContent boundingRectWithSize:CGSizeMake(unitSize - 4, unitSize - 4)
+                                                options:NSStringDrawingTruncatesLastVisibleLine
+                                             attributes:attrs
+                                                context:DrawContext];
+        
+        fontSize = fontSize * 0.9;
+    } while (ContentRect.size.width > unitSize);
     
-    NSDictionary *attrs = @{NSForegroundColorAttributeName:[UIColor blueColor],
-                           NSFontAttributeName:[UIFont boldSystemFontOfSize:30]};
     
-    CGSize size = [drawContent sizeWithAttributes:attrs];
     
-    assert(size.width < unitSize && size.height < unitSize);
     [drawContent drawInRect:CGRectMake(
-                                       xUnit * unitSize + (unitSize - size.width) / 2,
-                                       yUnit * unitSize + (unitSize - size.height) / 2,
-                                       unitSize,
-                                       unitSize)
+                                       xUnit * unitSize + (unitSize - ContentRect.size.width) / 2,
+                                       yUnit * unitSize + (unitSize - ContentRect.size.height) / 2,
+                                       ContentRect.size.width,
+                                       ContentRect.size.height)
              withAttributes:attrs];
 }
 

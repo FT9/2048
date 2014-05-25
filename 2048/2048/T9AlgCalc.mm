@@ -54,13 +54,12 @@ int T9AlgCalc::getScore()
 
 void T9AlgCalc::drawItems()
 {
-    for (int i = 0; i < m_DrawPosition.size(); ++i)
+    for (int i = 0; i < 16; ++i)
     {
-        int x = m_DrawPosition[i] % 4;
-        int y = m_DrawPosition[i] / 4;
+        int x = i % 4;
+        int y = i / 4;
         
-        assert(m_container[m_DrawPosition[i]]->isExist());
-        m_container[m_DrawPosition[i]]->drawItem(x, y, m_unit);
+        m_container[i]->drawItem(x, y, m_unit);
     }
 }
 
@@ -139,7 +138,7 @@ void T9AlgCalc::_ProcessRow(std::vector<int> &vecIdx, std::vector<T9DigitalItem 
             if (vec[i]->getNum() != vec[k]->getNum())
                 break;
             
-            m_score = vec[i]->doubleNum();
+            m_score += vec[i]->doubleNum();
             vec[k]->setExist(false);
             _RemoveItem(vecIdx[k]);
             

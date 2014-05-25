@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #include "T9AlgCalc.h"
 
+@protocol T9MainDrawViewDelegate
+- (void) changeTheScore:(int)score;
+@end
+
 @interface T9MainDrawView : UIView
 {
     T9AlgCalc *m_pAlgCalc;
 }
-
+@property( assign, nonatomic ) id< T9MainDrawViewDelegate > delegate;
 -(void) handleSwipeGesture:(UISwipeGestureRecognizer*) recognier;
 @end

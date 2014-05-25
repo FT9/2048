@@ -9,11 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface T9InfoView : UIView
-@property(nonatomic, strong) UILabel *gameNameLabel;
-@property(nonatomic, strong) UILabel *scoreTitleLabel;
-@property(nonatomic, strong) UILabel *scoreLabel;
-@property(nonatomic, strong) UILabel *highestScoreTitleLabel;
-@property(nonatomic, strong) UILabel *highestScoreLabel;
-@property(nonatomic, assign) int iScore;
-@property(nonatomic, assign) int iHighestScore;
 @end
