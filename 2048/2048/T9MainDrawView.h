@@ -17,6 +17,7 @@
 {
     T9AlgCalc *m_pAlgCalc;
 }
-@property( assign, nonatomic ) id< T9MainDrawViewDelegate > delegate;
--(void) handleSwipeGesture:(UISwipeGestureRecognizer*) recognier;
+
+@property( strong, nonatomic ) id< T9MainDrawViewDelegate > delegate;
+- (void) handleSwipeGesture:(UISwipeGestureRecognizer*) recognier;
 @end

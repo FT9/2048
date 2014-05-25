@@ -11,11 +11,9 @@
 @class T9InfoView;
 
 @interface T9ViewController : UIViewController<T9MainDrawViewDelegate>
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *blankVConstraints;
-@property (strong, nonatomic) IBOutlet T9InfoView *InfoView;
-@property (strong, nonatomic) IBOutlet UIView *PlaceHolderView;
-@property (strong, nonatomic) IBOutlet T9MainDrawView *MainView;
-@property (weak, nonatomic) IBOutlet UILabel *Score;
-@property (weak, nonatomic) IBOutlet UILabel *Best;
+@property (strong, nonatomic) IBOutlet T9MainDrawView *viewMain;
+@property (strong, nonatomic) IBOutlet UIView *viewPlaceHolder;
+@property (strong, nonatomic) IBOutlet T9InfoView *viewInfo;
+@property (strong, nonatomic) IBOutlet UILabel *labelScore;
+@property (strong, nonatomic) IBOutlet UILabel *labelBest;
 @end

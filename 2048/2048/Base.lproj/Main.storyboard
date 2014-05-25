@@ -117,11 +117,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="Best" destination="rLN-1k-JH0" id="Yhb-dF-jAf"/>
-                        <outlet property="InfoView" destination="O2w-5k-TlK" id="8iv-mm-HA6"/>
-                        <outlet property="MainView" destination="uS0-y2-pBp" id="jJ2-zQ-8Rt"/>
-                        <outlet property="PlaceHolderView" destination="cEM-Ca-Dzw" id="nJT-OV-puR"/>
-                        <outlet property="Score" destination="Eht-dL-vEH" id="ZCX-tC-xBp"/>
+                        <outlet property="labelBest" destination="rLN-1k-JH0" id="3gW-4Z-O0C"/>
+                        <outlet property="labelScore" destination="Eht-dL-vEH" id="vyw-sf-uQs"/>
+                        <outlet property="viewInfo" destination="O2w-5k-TlK" id="Jt4-FN-6YG"/>
+                        <outlet property="viewMain" destination="uS0-y2-pBp" id="rQS-ZX-hIt"/>
+                        <outlet property="viewPlaceHolder" destination="cEM-Ca-Dzw" id="mFc-nO-6UF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

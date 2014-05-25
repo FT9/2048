@@ -20,6 +20,7 @@ public:
     
     int getNum();
     void setNum(int num);
+    
     int doubleNum();
     void drawItem(int xUnit, int yUnit, float unitSize);
     

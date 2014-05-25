@@ -20,40 +20,48 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    //  UIColor *backgrounColor = [[UIColor alloc] initWithRed:0.258 green:0.248 blue:0.241 alpha:1];
     
     [self.view setBackgroundColor:[UIColor lightGrayColor]];
-   
     for (UIView *view in self.view.subviews)
     {
         if (view.tag != 1)
             [view setBackgroundColor:[UIColor lightGrayColor]];
     }
-    [self.MainView setBackgroundColor:[UIColor darkGrayColor]];
+    [self.viewMain setBackgroundColor:[UIColor darkGrayColor]];
+    [self.labelScore setText:@"0"];
+    self.viewMain.translatesAutoresizingMaskIntoConstraints = NO;
+    self.viewInfo.translatesAutoresizingMaskIntoConstraints = NO;
+    self.viewMain.delegate = self;
     
-    UISwipeGestureRecognizer *swipeGestureright = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureright = [[UISwipeGestureRecognizer alloc]
+                                                   initWithTarget:self.viewMain                                                                                           action:@selector(handleSwipeGesture:)];
+    
     [swipeGestureright setDirection:UISwipeGestureRecognizerDirectionRight];
     
-    UISwipeGestureRecognizer *swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureLeft = [[UISwipeGestureRecognizer alloc]
+                                                  initWithTarget:self.viewMain
+                                                  action:@selector(handleSwipeGesture:)];
+    
     [swipeGestureLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
     
-    UISwipeGestureRecognizer *swipeGestureUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureUp = [[UISwipeGestureRecognizer alloc]
+                                                initWithTarget:self.viewMain
+                                                action:@selector(handleSwipeGesture:)];
+    
     [swipeGestureUp setDirection:UISwipeGestureRecognizerDirectionUp];
     
-    UISwipeGestureRecognizer *swipeGestureDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self.MainView action:@selector(handleSwipeGesture:)];
+    UISwipeGestureRecognizer *swipeGestureDown = [[UISwipeGestureRecognizer alloc]
+                                                  initWithTarget:self.viewMain
+                                                  action:@selector(handleSwipeGesture:)];
+    
     [swipeGestureDown setDirection:UISwipeGestureRecognizerDirectionDown];
     
-    [self.MainView addGestureRecognizer:swipeGestureright];
-    [self.MainView addGestureRecognizer:swipeGestureLeft];
-    [self.MainView addGestureRecognizer:swipeGestureUp];
-    [self.MainView addGestureRecognizer:swipeGestureDown];
-    [self.MainView setUserInteractionEnabled:YES];
+    [self.viewMain addGestureRecognizer:swipeGestureright];
+    [self.viewMain addGestureRecognizer:swipeGestureLeft];
+    [self.viewMain addGestureRecognizer:swipeGestureUp];
+    [self.viewMain addGestureRecognizer:swipeGestureDown];
+    [self.viewMain setUserInteractionEnabled:YES];
     
-    self.MainView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.InfoView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.MainView.delegate = self;
-    
-    [self.Score setText:@"0"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,7 +72,7 @@
 
 - (void)changeTheScore:(int)score
 {
-    [self.Score setText:[NSString stringWithFormat:@"%d", score]];
+    [self.labelScore setText:[NSString stringWithFormat:@"%d", score]];
 }
 
 @end
