@@ -24,7 +24,7 @@
     [self.view setBackgroundColor:[UIColor lightGrayColor]];
     for (UIView *view in self.view.subviews)
     {
-        if (view.tag != 1)
+        if (view.tag != 1 && view.hidden != YES)
             [view setBackgroundColor:[UIColor lightGrayColor]];
     }
     [self.viewMain setBackgroundColor:[UIColor darkGrayColor]];
@@ -34,7 +34,8 @@
     self.viewMain.delegate = self;
     
     UISwipeGestureRecognizer *swipeGestureright = [[UISwipeGestureRecognizer alloc]
-                                                   initWithTarget:self.viewMain                                                                                           action:@selector(handleSwipeGesture:)];
+                                                   initWithTarget:self.viewMain
+                                                   action:@selector(handleSwipeGesture:)];
     
     [swipeGestureright setDirection:UISwipeGestureRecognizerDirectionRight];
     
